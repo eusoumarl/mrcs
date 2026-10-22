@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101511">
+  <title>MRCS Drinks | Orçamento para casamento</title>
+  <style>
+    :root {
+      --bg: #101511;
+      --panel: #19211b;
+      --panel2: #202a22;
+      --gold: #d2b16d;
+      --green: #8eae87;
+      --text: #f5f3ec;
+      --muted: #c0c8bd;
+      --line: #3b493d;
+      --danger: #ffb4a9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: radial-gradient(ellipse at top, #243328 0, var(--bg) 55%);
+      color: var(--text); font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    .wrap { width: min(920px, calc(100% - 28px)); margin: 28px auto 52px; }
+    header { text-align: center; padding: 24px 12px 28px; }
+    .brand { color: var(--gold); letter-spacing: .22em; font-size: clamp(1.25rem, 4vw, 2rem); font-weight: 800; }
+    .rule { width: 78px; height: 2px; margin: 14px auto; background: var(--gold); }
+    h1 { font-size: clamp(1.5rem, 4vw, 2.15rem); margin: 0 0 10px; }
+    header p { max-width: 650px; margin: 0 auto; color: var(--muted); }
+    form { display: grid; gap: 18px; }
+    fieldset { min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 22px; margin: 0; background: rgba(25,33,27,.94); }
+    legend { padding: 0 10px; color: var(--gold); font-size: 1.12rem; font-weight: 750; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .full { grid-column: 1 / -1; }
+    label, .field-title { display: block; font-weight: 650; margin-bottom: 7px; }
+    .hint { display: block; color: var(--muted); font-size: .88rem; font-weight: 400; margin-top: 4px; }
+    input, select, textarea {
+      width: 100%; padding: 12px 13px; border-radius: 9px; border: 1px solid #526354;
+      background: #101711; color: var(--text); font: inherit; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 2px #d2b16d2b; }
+    input[type="checkbox"], input[type="radio"] { width: auto; accent-color: var(--gold); margin: 2px 8px 0 0; }
+    .choices { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
+    .choice { display: flex; align-items: flex-start; gap: 4px; border: 1px solid var(--line); border-radius: 9px; padding: 10px 11px; font-weight: 450; margin: 0; }
+    .choice span { flex: 1; }
+    .drink-group { margin-top: 14px; }
+    .drink-group h3 { color: var(--green); font-size: 1rem; margin: 0 0 9px; }
+    .drink-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+    .note { color: var(--muted); font-size: .9rem; margin: 10px 0 0; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    button { cursor: pointer; border: 0; border-radius: 10px; padding: 14px 20px; font: inherit; font-weight: 800; }
+    .primary { background: var(--gold); color: #171911; flex: 1; min-width: 220px; }
+    .secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--line); }
+    .status { color: var(--muted); font-size: .92rem; margin: 0; }
+    footer { text-align: center; color: var(--muted); font-size: .85rem; margin: 24px 8px 0; }
+    .required { color: var(--gold); }
+    @media (max-width: 650px) {
+      .wrap { width: min(100% - 18px, 920px); margin-top: 10px; }
+      fieldset { padding: 17px 14px; }
+      .grid, .choices, .drink-grid { grid-template-columns: 1fr; }
+      .actions { flex-direction: column; }
+      .primary { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="brand">MRCS DRINKS</div>
+      <div class="rule"></div>
+      <h1>Solicitação de orçamento para casamento</h1>
+      <p>Preencha os dados do evento e selecione os drinks desejados. As respostas serão organizadas em uma mensagem para enviar à MRCS Drinks pelo WhatsApp. O envio não confirma a contratação nem a disponibilidade da data.</p>
+    </header>
+
+    <form id="quoteForm">
+      <fieldset>
+        <legend>1. Dados do cliente e do evento</legend>
+        <div class="grid">
+          <div>
+            <label for="responsavel">Nome completo do responsável <span class="required">*</span></label>
+            <input id="responsavel" name="responsavel" autocomplete="name" required>
+          </div>
+          <div>
+            <label for="noivos">Nome dos noivos <span class="required">*</span></label>
+            <input id="noivos" name="noivos" required>
+          </div>
+          <div>
+            <label for="whatsapp">WhatsApp para contato <span class="required">*</span></label>
+            <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="(11) 99999-9999" required>
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email">
+          </div>
+          <div>
+            <label for="data">Data do casamento <span class="required">*</span></label>
+            <input id="data" name="data" type="date" required>
+          </div>
+          <div>
+            <label for="local">Cidade e endereço do evento <span class="required">*</span></label>
+            <input id="local" name="local" placeholder="Cidade, espaço e endereço" required>
+          </div>
+          <div>
+            <label for="inicio">Horário de início <span class="required">*</span></label>
+            <input id="inicio" name="inicio" type="time" required>
+          </div>
+          <div>
+            <label for="termino">Horário de término <span class="required">*</span></label>
+            <input id="termino" name="termino" type="time" required>
+          </div>
+          <div>
+            <label for="convidados">Quantidade de convidados <span class="required">*</span></label>
+            <input id="convidados" name="convidados" type="number" min="1" max="5000" step="1" required>
+          </div>
+          <div>
+            <label for="menores">Quantidade estimada de crianças/adolescentes</label>
+            <input id="menores" name="menores" type="number" min="0" step="1" placeholder="Se houver">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. Serviço de bartender e open bar</legend>
+        <div class="grid">
+          <div class="full">
+            <span class="field-title">Duração desejada do serviço <span class="required">*</span></span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="duracao" value="3 horas" required><span>3 horas</span></label>
+              <label class="choice"><input type="radio" name="duracao" value="4 horas"><span>4 horas</span></label>
+              <label class="choice"><input type="radio" name="duracao" value="5 horas"><span>5 horas</span></label>
+              <label class="choice"><input type="radio" name="duracao" value="6 horas"><span>6 horas</span></label>
+              <label class="choice"><input type="radio" name="duracao" value="A definir"><span>A definir / preciso de orientação</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <span class="field-title">O que deseja contratar? <span class="required">*</span></span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="contratacao" value="Somente bartender / mão de obra" required><span>Somente bartender / mão de obra</span></label>
+              <label class="choice"><input type="radio" name="contratacao" value="Open bar com bebidas e ingredientes"><span>Open bar com bebidas e ingredientes</span></label>
+              <label class="choice"><input type="radio" name="contratacao" value="Serviço completo com estrutura de bar"><span>Serviço completo com estrutura de bar</span></label>
+              <label class="choice"><input type="radio" name="contratacao" value="Ainda não sei, preciso de orientação"><span>Ainda não sei, preciso de orientação</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <span class="field-title">Quem fornecerá as bebidas e os ingredientes? <span class="required">*</span></span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="fornecimento" value="MRCS Drinks, conforme orçamento" required><span>MRCS Drinks, conforme orçamento</span></label>
+              <label class="choice"><input type="radio" name="fornecimento" value="Nós forneceremos as bebidas alcoólicas"><span>Nós forneceremos as bebidas alcoólicas</span></label>
+              <label class="choice"><input type="radio" name="fornecimento" value="Nós forneceremos todos os ingredientes"><span>Nós forneceremos todos os ingredientes</span></label>
+              <label class="choice"><input type="radio" name="fornecimento" value="Fornecimento dividido entre as partes"><span>Fornecimento dividido entre as partes</span></label>
+              <label class="choice"><input type="radio" name="fornecimento" value="Preciso de orientação"><span>Preciso de orientação</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <span class="field-title">Além dos drinks, serão servidas outras bebidas no evento? <span class="required">*</span></span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="outras_bebidas" value="Sim" required><span>Sim</span></label>
+              <label class="choice"><input type="radio" name="outras_bebidas" value="Não" required><span>Não</span></label>
+              <label class="choice"><input type="radio" name="outras_bebidas" value="Ainda não definido" required><span>Ainda não definido</span></label>
+            </div>
+            <span class="hint">Se sim, selecione abaixo quais bebidas serão servidas.</span>
+          </div>
+          <div class="full">
+            <span class="field-title">Quais outras bebidas serão servidas? (selecione todas as opções aplicáveis)</span>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Cerveja"><span>Cerveja</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Whisky"><span>Whisky</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Vinho"><span>Vinho</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Espumante"><span>Espumante</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Refrigerante"><span>Refrigerante</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Água sem gás"><span>Água sem gás</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Água com gás"><span>Água com gás</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Suco"><span>Suco</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Energético"><span>Energético</span></label>
+              <label class="choice"><input type="checkbox" name="bebidas_adicionais" value="Outra bebida"><span>Outra bebida</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <label for="outrasbebidas_detalhes">Se marcou “Outra bebida”, informe qual. Se souber, indique também quem fornecerá essas bebidas.</label>
+            <textarea id="outrasbebidas_detalhes" name="outrasbebidas_detalhes" rows="2" placeholder="Ex.: licor; bebidas fornecidas pelos noivos."></textarea>
+          </div>
+          <div class="full">
+            <span class="field-title">Qual estrutura estará disponível no local? <span class="required">*</span></span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="estrutura" value="Balcão de bar e equipamentos" required><span>Balcão de bar e equipamentos</span></label>
+              <label class="choice"><input type="radio" name="estrutura" value="Somente mesa ou bancada"><span>Somente mesa ou bancada</span></label>
+              <label class="choice"><input type="radio" name="estrutura" value="Não haverá estrutura"><span>Não haverá estrutura</span></label>
+              <label class="choice"><input type="radio" name="estrutura" value="Ainda não sei"><span>Ainda não sei</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <span class="field-title">O que gostaria de incluir no orçamento?</span>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="itens" value="Balcão de bar"><span>Balcão de bar</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Copos e taças"><span>Copos e taças</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Gelo"><span>Gelo</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Frutas e ingredientes"><span>Frutas e ingredientes</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Bebidas alcoólicas"><span>Bebidas alcoólicas</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Ingredientes sem álcool"><span>Ingredientes sem álcool</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Utensílios de bar"><span>Utensílios de bar</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Decoração do bar"><span>Decoração do bar</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Transporte e montagem"><span>Transporte e montagem</span></label>
+              <label class="choice"><input type="checkbox" name="itens" value="Preciso de orientação sobre os itens"><span>Preciso de orientação sobre os itens</span></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Seleção dos drinks</legend>
+        <p class="note">Marque todos os drinks que gostaria de oferecer. A complexidade e o método de preparo são referências internas da MRCS Drinks e não precisam ser preenchidos pelo cliente.</p>
+        <div class="drink-group">
+          <h3>Drinks alcoólicos</h3>
+          <div class="drink-grid">
+            <label class="choice"><input type="checkbox" name="drinks" value="Caipirinha"><span>Caipirinha</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Caipiroska (Caipivodka)"><span>Caipiroska (Caipivodka)</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Saquerinha"><span>Saquerinha</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Caipiríssima"><span>Caipiríssima</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Gin Tônica"><span>Gin Tônica</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Moscow Mule"><span>Moscow Mule</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Aperol Spritz"><span>Aperol Spritz</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Margarita"><span>Margarita</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Mojito"><span>Mojito</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Piña Colada"><span>Piña Colada</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Daiquiri"><span>Daiquiri</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Sex on the Beach"><span>Sex on the Beach</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Negroni"><span>Negroni</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Whisky Sour"><span>Whisky Sour</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Gin Tropical"><span>Gin Tropical</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Vodka Sour"><span>Vodka Sour</span></label>
+          </div>
+        </div>
+        <div class="drink-group">
+          <h3>Drinks sem álcool</h3>
+          <div class="drink-grid">
+            <label class="choice"><input type="checkbox" name="drinks" value="Pink Lemonade"><span>Pink Lemonade</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Tropical sem Álcool"><span>Tropical sem Álcool</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Mojito sem Álcool"><span>Mojito sem Álcool</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Fruit Punch"><span>Fruit Punch</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Limonada Suíça"><span>Limonada Suíça</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Daiquiri de Morango sem Álcool"><span>Daiquiri de Morango sem Álcool</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Tropical Sunrise"><span>Tropical Sunrise</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Melancia Fresh"><span>Melancia Fresh</span></label>
+            <label class="choice"><input type="checkbox" name="drinks" value="Soda Italiana de Maçã Verde / Frutas"><span>Soda Italiana de Maçã Verde / Frutas</span></label>
+          </div>
+        </div>
+
+        <div class="drink-group">
+          <h3>Preferências de frutas por drink</h3>
+          <p class="note">Para os drinks abaixo, marque as frutas que gostaria de ter como opção. Você pode selecionar mais de uma fruta por drink. A disponibilidade será confirmada no orçamento.</p>
+          <div class="grid" style="margin-top:14px">
+            <div>
+              <span class="field-title">Caipirinha</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Kiwi"><span>Kiwi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Uva"><span>Uva</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirinha" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Caipiroska (Caipivodka)</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Kiwi"><span>Kiwi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Uva"><span>Uva</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipiroska" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Saquerinha</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Kiwi"><span>Kiwi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Uva"><span>Uva</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_saquerinha" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Caipiríssima</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Kiwi"><span>Kiwi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Uva"><span>Uva</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_caipirissima" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Gin Tropical</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_gin_tropical" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_gin_tropical" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_gin_tropical" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_gin_tropical" value="Kiwi"><span>Kiwi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_gin_tropical" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_gin_tropical" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Pink Lemonade</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_pink_lemonade" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_pink_lemonade" value="Frutas vermelhas"><span>Frutas vermelhas</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_pink_lemonade" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_pink_lemonade" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Tropical sem Álcool</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sem_alcool" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sem_alcool" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sem_alcool" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sem_alcool" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sem_alcool" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Fruit Punch</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_fruit_punch" value="Laranja"><span>Laranja</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_fruit_punch" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_fruit_punch" value="Frutas vermelhas"><span>Frutas vermelhas</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_fruit_punch" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_fruit_punch" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Daiquiri de Morango sem Álcool</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_daiquiri_morango" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_daiquiri_morango" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_daiquiri_morango" value="Frutas vermelhas"><span>Frutas vermelhas</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_daiquiri_morango" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Tropical Sunrise</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sunrise" value="Laranja"><span>Laranja</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sunrise" value="Abacaxi"><span>Abacaxi</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sunrise" value="Maracujá"><span>Maracujá</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_tropical_sunrise" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+            <div>
+              <span class="field-title">Melancia Fresh</span>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="fruta_melancia_fresh" value="Melancia"><span>Melancia</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_melancia_fresh" value="Limão"><span>Limão</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_melancia_fresh" value="Morango"><span>Morango</span></label>
+                <label class="choice"><input type="checkbox" name="fruta_melancia_fresh" value="Outra fruta (informar abaixo)"><span>Outra fruta (informar abaixo)</span></label>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px">
+            <label for="outrasfrutas">Não encontrou a fruta na lista? Informe aqui o nome da fruta e o drink correspondente.</label>
+            <input id="outrasfrutas" name="outrasfrutas" placeholder="Ex.: Caipiroska com manga; Mojito com framboesa">
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top:18px">
+          <div class="full">
+            <span class="field-title">Sabores desejados para a Soda Italiana</span>
+            <div class="choices">
+              <label class="choice"><input type="checkbox" name="sabores" value="Maçã verde"><span>Maçã verde</span></label>
+              <label class="choice"><input type="checkbox" name="sabores" value="Morango"><span>Morango</span></label>
+              <label class="choice"><input type="checkbox" name="sabores" value="Frutas vermelhas"><span>Frutas vermelhas</span></label>
+              <label class="choice"><input type="checkbox" name="sabores" value="Maracujá"><span>Maracujá</span></label>
+              <label class="choice"><input type="checkbox" name="sabores" value="Kiwi"><span>Kiwi</span></label>
+              <label class="choice"><input type="checkbox" name="sabores" value="Outro sabor"><span>Outro sabor (descrever abaixo)</span></label>
+            </div>
+          </div>
+          <div>
+            <label for="outrosabores">Outro sabor de Soda Italiana</label>
+            <input id="outrosabores" name="outrosabores" placeholder="Se aplicável">
+          </div>
+          <div>
+            <label for="quantdrink">Quantidade de opções de drinks desejada <span class="required">*</span></label>
+            <select id="quantdrink" name="quantdrink" required>
+              <option value="">Selecione</option>
+              <option>Até 4 drinks</option>
+              <option>5 a 6 drinks</option>
+              <option>7 a 8 drinks</option>
+              <option>Mais de 8 drinks</option>
+              <option>Preciso de sugestão</option>
+            </select>
+          </div>
+          <div class="full">
+            <span class="field-title">Preferência por opções sem álcool <span class="required">*</span></span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="semalcool" value="Pelo menos 2 opções" required><span>Pelo menos 2 opções</span></label>
+              <label class="choice"><input type="radio" name="semalcool" value="3 ou mais opções"><span>3 ou mais opções</span></label>
+              <label class="choice"><input type="radio" name="semalcool" value="Somente 1 opção"><span>Somente 1 opção</span></label>
+              <label class="choice"><input type="radio" name="semalcool" value="Ainda não decidi"><span>Ainda não decidi</span></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. Preferências e personalização</legend>
+        <div class="grid">
+          <div class="full">
+            <span class="field-title">O bar e a apresentação dos drinks devem seguir a decoração do casamento?</span>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="decoracao" value="Sim, seguir a decoração do casamento" required><span>Sim, seguir a decoração do casamento</span></label>
+              <label class="choice"><input type="radio" name="decoracao" value="Não tenho preferência específica"><span>Não tenho preferência específica</span></label>
+              <label class="choice"><input type="radio" name="decoracao" value="Gostaria de conversar sobre opções"><span>Gostaria de conversar sobre opções</span></label>
+            </div>
+          </div>
+          <div class="full">
+            <label for="restricoes">Alergias, restrições alimentares ou ingredientes a evitar</label>
+            <textarea id="restricoes" name="restricoes" rows="3" placeholder="Informe se houver alguma restrição importante."></textarea>
+          </div>
+          <div class="full">
+            <label for="indispensavel">Drink ou ingrediente indispensável</label>
+            <textarea id="indispensavel" name="indispensavel" rows="2" placeholder="Conte se existe algum drink que não pode faltar."></textarea>
+          </div>
+          <div class="full">
+            <label for="observacoes">Outras informações ou solicitações</label>
+            <textarea id="observacoes" name="observacoes" rows="3" placeholder="Deixe aqui outras informações relevantes para o orçamento."></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>5. Retorno do orçamento</legend>
+        <span class="field-title">Por qual canal prefere receber o retorno? <span class="required">*</span></span>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="retorno" value="WhatsApp" required><span>WhatsApp</span></label>
+          <label class="choice"><input type="radio" name="retorno" value="E-mail"><span>E-mail</span></label>
+        </div>
+        <p class="note">Ao clicar no botão abaixo, o WhatsApp será aberto com a mensagem preenchida. Confira os dados e toque em enviar dentro do WhatsApp. A solicitação não confirma a disponibilidade da data nem formaliza a contratação.</p>
+      </fieldset>
+
+      <div class="actions">
+        <button class="primary" type="submit">Preparar solicitação no WhatsApp</button>
+        <button class="secondary" type="reset">Limpar formulário</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+    <footer>MRCS Drinks · Sabores que tornam momentos inesquecíveis</footer>
+  </main>
+
+  <script>
+    // IMPORTANTE: substitua o número abaixo pelo WhatsApp comercial da MRCS Drinks.
+    // Use código do país + DDD + número, somente dígitos. Ex.: 5511999999999
+    const WHATSAPP_DESTINO = "5511964678773";
+
+    const form = document.getElementById("quoteForm");
+    const statusEl = document.getElementById("status");
+
+    function valor(nome) {
+      const field = form.elements.namedItem(nome);
+      if (!field) return "";
+      if (field instanceof RadioNodeList) return field.value || "";
+      return field.value || "";
+    }
+    function marcados(nome) {
+      return Array.from(form.querySelectorAll(`input[name="${nome}"]:checked`)).map(el => el.value);
+    }
+    function linha(rotulo, conteudo) {
+      return `${rotulo}: ${conteudo && String(conteudo).trim() ? String(conteudo).trim() : "Não informado"}`;
+    }
+    function dataBR(iso) {
+      if (!iso) return "";
+      const p = iso.split("-");
+      return p.length === 3 ? `${p[2]}/${p[1]}/${p[0]}` : iso;
+    }
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const drinks = marcados("drinks");
+      const itens = marcados("itens");
+      const bebidasAdicionais = marcados("bebidas_adicionais");
+      const sabores = marcados("sabores");
+      const frutasPorDrink = [
+        ["Caipirinha", "fruta_caipirinha"],
+        ["Caipiroska (Caipivodka)", "fruta_caipiroska"],
+        ["Saquerinha", "fruta_saquerinha"],
+        ["Caipiríssima", "fruta_caipirissima"],
+        ["Gin Tropical", "fruta_gin_tropical"],
+        ["Pink Lemonade", "fruta_pink_lemonade"],
+        ["Tropical sem Álcool", "fruta_tropical_sem_alcool"],
+        ["Fruit Punch", "fruta_fruit_punch"],
+        ["Daiquiri de Morango sem Álcool", "fruta_daiquiri_morango"],
+        ["Tropical Sunrise", "fruta_tropical_sunrise"],
+        ["Melancia Fresh", "fruta_melancia_fresh"]
+      ].map(([drink, campo]) => {
+        const frutas = marcados(campo);
+        return frutas.length ? `${drink}: ${frutas.join(", ")}` : "";
+      }).filter(Boolean);
+      const mensagem = [
+        "🍸 *MRCS DRINKS | SOLICITAÇÃO DE ORÇAMENTO*",
+        "",
+        "*1. DADOS DO CLIENTE E DO EVENTO*",
+        linha("Responsável", valor("responsavel")),
+        linha("Noivos", valor("noivos")),
+        linha("WhatsApp", valor("whatsapp")),
+        linha("E-mail", valor("email")),
+        linha("Data do casamento", dataBR(valor("data"))),
+        linha("Local", valor("local")),
+        linha("Horário", `${valor("inicio") || "Não informado"} às ${valor("termino") || "Não informado"}`),
+        linha("Convidados", valor("convidados")),
+        linha("Crianças/adolescentes", valor("menores")),
+        "",
+        "*2. SERVIÇO E OPEN BAR*",
+        linha("Duração", valor("duracao")),
+        linha("Tipo de contratação", valor("contratacao")),
+        linha("Fornecimento de bebidas/ingredientes para os drinks", valor("fornecimento")),
+        linha("Serão servidas outras bebidas?", valor("outras_bebidas")),
+        linha("Outras bebidas servidas", bebidasAdicionais.length ? bebidasAdicionais.join(", ") : "Não selecionadas"),
+        linha("Detalhes de outras bebidas", valor("outrasbebidas_detalhes")),
+        linha("Estrutura disponível", valor("estrutura")),
+        linha("Itens desejados no orçamento", itens.length ? itens.join(", ") : "Não selecionados"),
+        "",
+        "*3. DRINKS SELECIONADOS*",
+        drinks.length ? drinks.map((d, i) => `${i + 1}. ${d}`).join("\n") : "Nenhum drink selecionado",
+        linha("Sabores de Soda Italiana", sabores.length ? sabores.join(", ") : ""),
+        linha("Outro sabor", valor("outrosabores")),
+        "*Preferências de frutas por drink*",
+        frutasPorDrink.length ? frutasPorDrink.join("\\n") : "Nenhuma preferência de fruta especificada",
+        linha("Outra fruta ou preferência especial", valor("outrasfrutas")),
+        linha("Quantidade de opções", valor("quantdrink")),
+        linha("Preferência por drinks sem álcool", valor("semalcool")),
+        "",
+        "*4. PREFERÊNCIAS E PERSONALIZAÇÃO*",
+        linha("Decoração do casamento", valor("decoracao")),
+        linha("Alergias/restrições", valor("restricoes")),
+        linha("Drink/ingrediente indispensável", valor("indispensavel")),
+        linha("Outras solicitações", valor("observacoes")),
+        "",
+        "*5. RETORNO*",
+        linha("Canal preferido", valor("retorno")),
+        "",
+        "_Solicitação enviada para elaboração de orçamento. A data depende de confirmação de disponibilidade e a contratação depende de formalização._"
+      ].join("\n");
+
+      // Número comercial da MRCS Drinks configurado no arquivo.
+      const url = `https://wa.me/${WHATSAPP_DESTINO}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+      statusEl.textContent = "O WhatsApp foi aberto com a mensagem pronta. Confira os dados e envie a mensagem pelo próprio WhatsApp.";
+    });
+  </script>
+</body>
+</html>
